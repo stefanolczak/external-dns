@@ -443,7 +443,7 @@ func (sc *serviceSource) generateEndpoints(svc *v1.Service, hostname string, pro
 		if svc.Spec.ClusterIP == v1.ClusterIPNone {
 			endpoints = append(endpoints, sc.extractHeadlessEndpoints(svc, hostname, ttl)...)
 		} else {
-			endpoints = append(endpoints, sc.extractHeadlessEndpoints(svc, hostname + "-headless", ttl)...)
+			endpoints = append(endpoints, sc.extractHeadlessEndpoints(svc, "headless." + hostname, ttl)...)
 		}
 	case v1.ServiceTypeNodePort:
 		// add the nodeTargets and extract an SRV endpoint
