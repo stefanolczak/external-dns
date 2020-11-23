@@ -255,6 +255,10 @@ func (sc *serviceSource) extractHeadlessEndpoints(svc *v1.Service, hostname stri
 
 		for _, address := range addresses {
 			// find pod for this address
+			if address.TargetRef == nil {
+				log.Debugf("Skipping address because no target ref in a pod: %v", address)
+				continue
+			}
 			if address.TargetRef.APIVersion != "" || address.TargetRef.Kind != "Pod" {
 				log.Debugf("Skipping address because its target is not a pod: %v", address)
 				continue
